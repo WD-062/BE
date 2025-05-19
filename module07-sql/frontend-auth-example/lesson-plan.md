@@ -39,7 +39,7 @@ const MainLayout = () => {
                 user={user}
                 setUser={setUser}
             />
-            <main className='flex-grow flex flex-col justify-between py-4'>
+            <main className='grow flex flex-col justify-between py-4'>
                 <Outlet
                     context={{
                         signedIn,
@@ -249,7 +249,7 @@ const MainLayout = () => {
     return (
         <div className='bg-slate-600 text-gray-300 flex flex-col min-h-screen'>
             <Navbar signedIn={signedIn} setSignedIn={setSignedIn} />
-            <main className='flex-grow flex flex-col justify-between py-4'>
+            <main className='grow flex flex-col justify-between py-4'>
                 <Outlet context={{ signedIn, setSignedIn, user, setUser }} />
             </main>
             <Footer />

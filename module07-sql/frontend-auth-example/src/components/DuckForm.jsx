@@ -41,7 +41,7 @@ const DuckForm = ({ setDucks }) => {
                         name='name'
                         type='text'
                         placeholder="What is your duck's name?"
-                        className='bg-inherit border-solid border-2 border-slate-700 rounded-lg p-2 flex-grow'
+                        className='bg-inherit border-solid border-2 border-slate-700 rounded-lg p-2 grow'
                     />
                 </label>
                 <label className='w-full flex gap-2 items-baseline'>
