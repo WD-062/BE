@@ -16,6 +16,7 @@ const requestHandler = async (req, res) => {
     if (method === 'POST') return await createProduct(req, res);
     else return returnErrorWithMessage(res, 405, 'Method Not Allowed');
   } else if (regex(resource).test(url)) {
+    // /products/:id
     if (method === 'GET') return await getProductById(req, res);
     if (method === 'PUT') return await updateProduct(req, res);
     if (method === 'DELETE') return await deleteProduct(req, res);
