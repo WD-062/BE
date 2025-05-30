@@ -11,6 +11,11 @@ const port = 3000;
 //incoming request will have a JSON body
 app.use(express.json());
 
+app.use((req, res, next) => {
+  console.log('Time: ', Date.now());
+  next();
+});
+
 app.get('/', (req, res) => res.send('Hello world!'));
 
 app.use('/ducks', duckRouter);

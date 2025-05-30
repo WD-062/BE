@@ -49,9 +49,11 @@ const getDuckById = async (req, res) => {
 };
 const updateDuck = async (req, res) => {
   try {
+    const { userId } = req;
     const { id } = req.params;
     const { name, imgUrl, quote } = req.body;
 
+    console.log('userId: ', userId);
     if (!name || !imgUrl || !quote) return res.status(400).json({ error: 'Missing required fields' });
 
     // const {
@@ -60,7 +62,9 @@ const updateDuck = async (req, res) => {
     //   'UPDATE wild_ducks SET name = $1, img_url = $2, quote = $3, updated_at = CURRENT_TIMESTAMP WHERE id = $4 RETURNING *;',
     //   [name, imgUrl, quote, id]
     // );
-    const duck = await Duck.findByPk(id);
+    const duck = await Duck.findByPk(id, { include: User });
+
+    if (userId !== duck.user.id) return res.status(403).json({ error: 'You are not authorized to update this duck' });
 
     if (!duck) return res.status(404).json({ error: 'Duck not found' });
 
