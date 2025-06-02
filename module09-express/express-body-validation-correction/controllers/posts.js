@@ -10,7 +10,7 @@ export const createPost = async (req, res) => {
   const {
     body: { title, content, userId }
   } = req;
-  if (!title || !content || !userId) throw new Error('title, content, and userId are required');
+  if (!title || !content || !userId) throw new Error('title, content, and userId are required', { cause: 400 });
   const post = await Post.create(req.body);
   const user = await post.getUser();
   post.dataValues.user = user;
@@ -22,7 +22,7 @@ export const getPostById = async (req, res) => {
     params: { id }
   } = req;
   const post = await Post.findByPk(id, { include: User });
-  if (!post) throw new Error('Post not found');
+  if (!post) throw new Error('Post not found', { cause: 404 });
   res.json(post);
 };
 
@@ -31,9 +31,9 @@ export const updatePost = async (req, res) => {
     body: { title, content, userId },
     params: { id }
   } = req;
-  if (!title || !content || !userId) throw new Error('title, content, and userId are required');
+  if (!title || !content || !userId) throw new Error('title, content, and userId are required', { cause: 400 });
   const post = await Post.findByPk(id);
-  if (!post) throw new Error('Post not found');
+  if (!post) throw new Error('Post not found', { cause: 404 });
   await post.update(req.body);
   const user = await post.getUser();
   post.dataValues.user = user;
@@ -45,7 +45,7 @@ export const deletePost = async (req, res) => {
     params: { id }
   } = req;
   const post = await Post.findByPk(id);
-  if (!post) throw new Error('Post not found');
+  if (!post) throw new Error('Post not found', { cause: 404 });
   await post.destroy();
   res.json({ message: 'Post deleted' });
 };
