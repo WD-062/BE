@@ -1,0 +1,9 @@
+const errorHandler = (err, req, res, next) => {
+  process.env.NODE_ENV !== 'production' && console.log(err.stack);
+
+  res.status(err.cause || 500).json({
+    error: err.message || 'Server Error'
+  });
+};
+
+export default errorHandler;
