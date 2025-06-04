@@ -1,23 +1,22 @@
-import { DataTypes } from 'sequelize';
-import sequelize from '../db/index.js';
+import { Schema, model } from 'mongoose';
 
-// CREATE TABLE users
-const User = sequelize.define('user', {
-  // first_name VARCHAR(255) NOT NULL
-  firstName: {
-    type: DataTypes.STRING,
-    allowNull: false
+const userSchema = new Schema(
+  {
+    firstName: {
+      type: String,
+      required: [true, 'First name is required']
+    },
+    lastName: {
+      type: String,
+      required: [true, 'Last name is required']
+    },
+    email: {
+      type: String,
+      required: [true, 'Email is required'],
+      unique: true
+    }
   },
-  lastName: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  email: {
-    type: DataTypes.STRING,
-    allowNull: false
-  }
-});
+  { timestamps: true }
+);
 
-// User.sync();
-
-export default User;
+export default model('User', userSchema);

@@ -1,8 +1,9 @@
-// import { Pool } from 'pg';
-import { Sequelize } from 'sequelize';
+import mongoose from 'mongoose';
 
-// const pool = new Pool({ connectionString: process.env.PG_URI });
-const sequelize = new Sequelize(process.env.PG_URI);
-
-// export default pool;
-export default sequelize;
+try {
+  await mongoose.connect(process.env.MONGO_URI);
+  console.log('MongoDB connected');
+} catch (error) {
+  console.error('MongoDb connection error:', error);
+  process.exit(1);
+}

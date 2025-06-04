@@ -1,16 +1,13 @@
-import { DataTypes } from 'sequelize';
-import sequelize from '../db/index.js';
+import { Schema, model } from 'mongoose';
 
-const Duck = sequelize.define(
-  'duck',
+const duckSchema = new Schema(
   {
-    name: { type: DataTypes.STRING, allowNull: false },
-    imgUrl: { type: DataTypes.STRING(510), allowNull: false },
-    quote: { type: DataTypes.STRING(510), defaultValue: "I'm here to help!" }
+    name: { type: String, required: true, maxLength: 255 },
+    imgUrl: { type: String, required: true, maxLength: 510 },
+    quote: { type: String, default: "I'm here to help!", maxLength: 1100 },
+    owner: { type: Schema.Types.ObjectId, ref: 'User', required: [true, 'Owner is required'] }
   },
-  { paranoid: true }
+  { timestamps: true }
 );
 
-// Duck.sync();
-
-export default Duck;
+export default model('Duck', duckSchema);
