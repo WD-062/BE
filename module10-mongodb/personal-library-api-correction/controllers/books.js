@@ -2,7 +2,7 @@ import { isValidObjectId } from 'mongoose';
 import Book from '../models/Book.js';
 
 const getAllBooks = async (req, res) => {
-  const books = await Book.find();
+  const books = await Book.find().lean();
 
   res.json(books);
 };
@@ -24,7 +24,7 @@ const getBookById = async (req, res) => {
 
   if (!isValidObjectId(id)) throw new Error('Invalid id', { cause: 400 });
 
-  const book = await Book.findById(id);
+  const book = await Book.findById(id).lean();
 
   if (!book) throw new Error('Book not found', { cause: 404 });
 
