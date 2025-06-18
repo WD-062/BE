@@ -25,9 +25,15 @@ const getDuckById = async (req, res) => {
 };
 const updateDuck = async (req, res) => {
   const { id } = req.params;
+  // destructure userId from the body
 
   if (!isValidObjectId(id)) throw new Error('Invalid id', { cause: 400 });
 
+  // check if userId from the body matches owner property (id of owner)
+
+  // throw an error if they don't match
+
+  // only allow edits if they did match
   const duck = await Duck.findByIdAndUpdate(id, req.sanitizedBody, { new: true });
 
   if (!duck) throw new Error('Duck not found', { cause: 404 });
